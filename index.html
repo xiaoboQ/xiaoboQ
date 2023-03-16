@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>BocchiFans₍˄·͈༝·͈˄*₎◞ ̑̑</title>
+    <link rel="stylesheet" href="static/css/index.css">
+</head>
+<body>
+<div class="container" id="app">
+    <div class="NavigationBar">
+        <a href="#" class="box"><i><img src="static/img/index/list.png" alt="图片找不到了"></i><span>list</span></a>
+        <a href="bandIntroduce.html" class="box" target="_self"><i><img src="static/img/index/band.png" alt="图片找不到了"></i><span>band</span></a>
+        <a href="musicPlayer.html" class="box" target="_self"><i><img src="static/img/index/music.png" alt="图片找不到了"></i><span>music</span></a>
+        <a href="imgwall.html" class="box" target="_self"><i><img src="static/img/index/pic.png" alt="图片找不到了"></i><span>images wall</span></a>
+        <a href="personalCentre.html" class="box" target="_self"><i><img src="static/img/index/person.png" alt="图片找不到了"></i><span>personal centre</span></a>
+        <a href="webIntroduction.html" class="box" target="_self"><i><img src="static/img/index/web.png" alt="图片找不到了"></i><span>info</span></a>
+    </div>
+    <div class="web">
+        <div class="joke-box">
+            <div class="joke">
+                <p>{{joke}}</p>
+            </div>
+            <div class="refresh-box">
+                <img src="static/img/index/refresh.png" alt="图片不见了QAQ" @click="getJoke">
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="static/js/vue.js"></script>
+<script src="static/js/axios-0.18.0.js"></script>
+<script>
+    var app = new Vue({
+        el:"#app",
+        data:{
+            joke:"轻松一下"
+        },
+        methods:{
+            getJoke:function (){
+                var that = this
+                //发送请求获取随机笑话
+                axios.get("https://autumnfish.cn/api/joke").then(function (response){
+                    if(response.status === 200){
+                        that.joke = response.data
+                    }
+                }, function (err){
+                    alert("网络似乎有点问题")
+                })
+            }
+
+
+        },
+        mounted(){
+            //初始化笑话模块
+            var that = this
+            //发送请求获取随机笑话
+            axios.get("https://autumnfish.cn/api/joke").then(function (response){
+                if(response.status === 200){
+                    that.joke = response.data
+                }
+            }, function (err){
+                alert("网络似乎有点问题")
+            })
+        }
+    })
+</script>
+</body>
+</html>
