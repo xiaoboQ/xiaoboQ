@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>BocchiFans₍˄·͈༝·͈˄*₎◞ ̑̑</title>
+    <link rel="stylesheet" href="static/css/login.css">
+</head>
+<body>
+    <div id = "container" class="container">
+        <div class="form-box">
+<!--            注册-->
+            <div class="register-box hidden">
+                <h1>register</h1>
+                <input type="text" placeholder="用户名" v-model="username">
+                <input type="text" placeholder="邮箱" v-model="email">
+                <input type="password" placeholder="密码" v-model="password">
+                <input type="password" placeholder="确认密码" v-model="confirmPassword">
+                <button @click="register">注册</button>
+            </div>
+<!--            登录-->
+            <div class="login-box">
+                <h1>login</h1>
+                <input type="text" placeholder="邮箱" v-model='email'>
+                <input type="password" placeholder="密码" v-model="password">
+                <button @click="login">登录</button>
+            </div>
+        </div>
+            <div class="con-box left">
+                <h2><span>BocchiFans</span></h2>
+                <p>快来开启你的哲学之旅</p>
+                <img src="static/img/login/test.jpg" alt="图片不见了QAQ">
+                <p>已有账号</p>
+                <button id="to_login" @click="moveLogin">去登陆</button>
+            </div>
+            <div class="con-box right">
+                <h2><span>BocchiFans</span></h2>
+                <p>快来开启你的哲学之旅</p>
+                <img src="static/img/login/test.jpg" alt="图片不见了QAQ">
+                <p>没有账号？</p>
+                <button id="to_register" @click="moveRegister">去注册</button>
+            </div>
+    </div>
+<script src="static/js/vue.js"></script>
+<script src="static/js/axios-0.18.0.js"></script>
+<script>
+    var app = new Vue({
+        el:"#container",
+        data:{
+            username:"",
+            email:"",
+            password:"",
+            confirmPassword:""
+        },
+        methods:{
+            moveRegister:function (){
+                //设置需要移动的滑块元素
+                let form_box = document.getElementsByClassName("form-box")[0]
+                let register_box = document.getElementsByClassName("register-box")[0]
+                let login_box = document.getElementsByClassName("login-box")[0]
+                //设置组件属性
+                form_box.style.transform="translateX(80%)"
+                login_box.classList.add("hidden")
+                register_box.classList.remove("hidden")
+                //切换滑块之后需要将数据进行清空
+                this.username = ""
+                this.email = ""
+                this.password = ""
+                this.confirmPassword = ""
+            },
+            moveLogin:function (){
+                //设置需要移动的滑块元素
+                let form_box = document.getElementsByClassName("form-box")[0]
+                let register_box = document.getElementsByClassName("register-box")[0]
+                let login_box = document.getElementsByClassName("login-box")[0]
+                //设置组件属性
+                form_box.style.transform="translateX(0%)"
+                register_box.classList.add('hidden')
+                login_box.classList.remove("hidden")
+                //切换滑块之后需要将数据进行清空
+                this.username = ""
+                this.email = ""
+                this.password = ""
+                this.confirmPassword = ""
+            },
+            register:function (){
+                //判断用户名，邮箱或者密码是否为空
+                //这是提托答辩代码
+                if(this.username === ""){
+                    alert("用户名不能为空")
+                }else if(this.email === ""){
+                    alert("邮箱不能为空")
+                }else if(this.password === ""){
+                    alert("密码不能为空")
+                }else if(this.confirmPassword === ""){
+                    alert("请填写确认密码")
+                }else if(this.password === this.confirmPassword){//密码与确认密码相同
+                    var reg = /^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+((\.[a-zA-Z0-9_-]{2,3}){1,2})$/;
+                    isok=reg.test(this.email);
+                    if (!isok){
+                        alert("邮箱格式不正确")
+                    }else{
+                        var that = this
+
+                        //向后端发送请求
+                        var data = {"username":this.username, "email":this.email, "password":this.password}
+                        axios.post("http://127.0.0.1:9999/users", data).then(function (response){//正确发送请求后的函数
+                            //alert(response.data.msg)
+                            //成功注册
+                            if(response.data.code === 200){
+                                //储存用户email以及密码信息并跳转
+                                localStorage.email = that.email
+                                location.href = "waiting.html"
+                            }
+
+                        }, function (err){//错误发送执行的函数
+                            alert("网络似乎有点问题")
+                        })
+                    }
+
+
+                }else{
+                    alert("密码与确认密码不一致")
+                }
+            },
+            login:function (){
+                if(this.email === ""){
+                    alert("邮箱不能为空")
+                }else if(this.password === ""){
+                    alert("密码不能为空")
+                } else{
+                    var reg = /^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+((\.[a-zA-Z0-9_-]{2,3}){1,2})$/;
+                    isok=reg.test(this.email);
+                    if(!isok){
+                        alert("邮箱格式不正确")
+                    }else{
+                        var that = this
+
+                        axios.get("http://127.0.0.1:9999/users?email="+this.email+"&password="+this.password).then(function(response){
+                            //alert(response.data.msg)
+                            //成功登录
+                            if(response.data.code === 200){
+                                //储存用户email以及密码信息并跳转//储存用户email以及密码信息并跳转
+                                localStorage.email = that.email
+                                location.href = "waiting.html"
+                            }
+
+                        }, function(err){
+                            alert("网络似乎有点问题")
+                        })
+                    }
+
+
+                }
+            }
+        },
+        mounted(){
+
+        }
+    })
+
+</script>
+</body>
+</html>

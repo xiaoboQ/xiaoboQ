@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>BocchiFans₍˄·͈༝·͈˄*₎◞ ̑̑</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+
+        body{
+            background-color: #dff9fb;
+        }
+
+        .container{
+            /*先设置网格布*/
+            display: grid;
+            padding: 20px;
+            /*定义网格行与列的间距*/
+            grid-gap: 20px;
+            /*规定网格布局中的列数禾宽度*/
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            /*网格中行的默认尺寸*/
+            grid-auto-rows: 270px;
+            /*属性控制自动控制项目在王各种的插入方式为填充*/
+            grid-auto-flow: dense;
+        }
+
+        .container>div{
+            background-color: rgb(51, 51, 51);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 10px;
+            position: relative;
+            object-fit: cover;
+        }
+
+        .container span{
+            color: #fff;
+            font: 100 100px 'Kristen ITC';
+            position: absolute;
+            top: -10px;
+            left: 20px;
+            /*给文字加阴影*/
+            text-shadow: -5px 0 rgb(0, 0, 0), 0 -5px rgb(0, 0, 0), 5px 0 rgb(0, 0, 0), 0 5px rgb(0, 0, 0);
+        }
+
+        .container .wide{
+            grid-column: span 3;
+        }
+
+        .container .tall{
+            grid-row: span 2;
+        }
+
+        .container .big{
+            grid-column: span 2;
+            grid-row: span 2;
+        }
+
+        div img{
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .container div{
+             transition-delay: 0.1s;
+            transition: 0.3s;
+        }
+
+        .container div:hover{
+            transform: scale(1.05);
+            box-shadow: 0 20px 30px rgba(0, 0, 0, 0.7);
+        }
+
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="wide">
+        <img src="static/img/imgwall/1.jpg" alt="图片不见了">
+    </div>
+    <div>
+        <img src="static/img/imgwall/2.jpg" alt="图片不见了">
+    </div>
+    <div>
+        <img src="static/img/imgwall/3.jpg" alt="图片不见了">
+    </div>
+    <div class="tall">
+        <img src="static/img/imgwall/4.jpg" alt="图片不见了">
+    </div>
+    <div>
+        <img src="static/img/imgwall/5.jpg" alt="图片不见了">
+    </div>
+    <div class="tall">
+        <img src="static/img/imgwall/6.jpg" alt="图片不见了">
+    </div>
+    <div class="big">
+        <img src="static/img/imgwall/7.jpg" alt="图片不见了">
+    </div>
+    <div class="tall">
+        <img src="static/img/imgwall/8.jpg" alt="图片不见了">
+    </div>
+    <div>
+        <img src="static/img/imgwall/9.jpg" alt="图片不见了">
+    </div>
+    <div>
+        <img src="static/img/imgwall/10.jpg" alt="图片不见了">
+    </div>
+    <div>
+        <img src="static/img/imgwall/11.jpg" alt="图片不见了">
+    </div>
+    <div>
+        <img src="static/img/imgwall/12.jpg" alt="图片不见了">
+    </div>
+    <div>
+        <img src="static/img/imgwall/13.jpg" alt="图片不见了">
+    </div>
+    <div>
+        <img src="static/img/imgwall/14.jpg" alt="图片不见了">
+    </div>
+    <div>
+        <img src="static/img/imgwall/15.jpg" alt="图片不见了">
+    </div>
+    <div class="wide">
+        <img src="static/img/imgwall/16.jpg" alt="图片不见了">
+    </div>
+    <div>
+        <img src="static/img/imgwall/17.jpg" alt="图片不见了">
+    </div>
+    <div>
+        <img src="static/img/imgwall/18.jpg" alt="图片不见了">
+    </div>
+    <div class="wide">
+        <img src="static/img/imgwall/19.jpg" alt="图片不见了">
+    </div>
+    <div>
+        <img src="static/img/imgwall/20.jpg" alt="图片不见了">
+    </div>
+</div>
+</body>
+</html>

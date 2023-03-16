@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>BocchiFans₍˄·͈༝·͈˄*₎◞ ̑̑</title>
+    <link rel="stylesheet" href="static/css/personalCentre.css">
+</head>
+<body>
+<div class="container" id="app">
+<!--    头像-->
+    <div class="head">
+        <div class="pic">
+            <img src="static/img/personalCentre/head.jpg" alt="图片找不到了QAQ">
+        </div>
+    </div>
+<!--    个人信息-->
+    <div class="info-box">
+        <div class="line-box">用户名：{{username}}</div>
+        <div class="line-box">邮箱：{{email}}</div>
+        <div class="line-box">进入本站已经过去了：{{day}} 天 {{hour}} 小时 {{min}} 分钟 {{sec}} 秒</div>
+    </div>
+
+<!--    按钮事件-->
+    <div class="refresh">
+        <button @click="getPersonInfo">
+            <div class="svg-wrapper-1">
+                <div class="svg-wrapper">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+                        <path fill="none" d="M0 0h24v24H0z"></path>
+                        <path fill="currentColor" d="M1.946 9.315c-.522-.174-.527-.455.01-.634l19.087-6.362c.529-.176.832.12.684.638l-5.454 19.086c-.15.529-.455.547-.679.045L12 14l6-8-8 6-8.054-2.685z"></path>
+                    </svg>
+                </div>
+            </div>
+            <span>Refresh</span>
+        </button>
+    </div>
+</div>
+
+<script src="static/js/vue.js"></script>
+<script src="static/js/axios-0.18.0.js"></script>
+<script>
+    var app = new Vue({
+        el:"#app",
+        data:{
+            "username":"",
+            "email":"",
+            "day":0,
+            "hour":0,
+            "min":0,
+            "sec":0
+        },
+        methods:{
+            getPersonInfo:function () {
+                var that =  this
+
+                //发送请求获取数据
+                axios.get("http://127.0.0.1:9999/users/personInfo?email="+localStorage.email).then(function (response) {
+                    if(response.data.code === 200){
+                        that.username = response.data.data.username
+                        that.day = response.data.data.day
+                        that.hour = response.data.data.hour
+                        that.min = response.data.data.min
+                        that.sec = response.data.data.sec
+                    }else{
+                        alert("请求失败")
+                    }
+                }, function (err) {
+                    alert("网络似乎存在问题")
+                })
+
+            }
+
+
+        },
+        mounted(){
+            this.email = localStorage.email
+            var that = this;
+            //发送请求获取数据
+            axios.get("http://127.0.0.1:9999/users/personInfo?email="+localStorage.email).then(function (response) {
+                if(response.data.code === 200){
+                    that.username = response.data.data.username
+                    that.day = response.data.data.day
+                    that.hour = response.data.data.hour
+                    that.min = response.data.data.min
+                    that.sec = response.data.data.sec
+                }else{
+                    alert("请求失败")
+                }
+            }, function (err) {
+                alert("网络似乎存在问题")
+            })
+
+
+        }
+    })
+</script>
+</body>
+</html>
